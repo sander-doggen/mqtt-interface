@@ -1,3 +1,5 @@
+let input_name;
+
 let boxSize = 400;
 let knobSize = 150;
 
@@ -70,12 +72,14 @@ window.customElements.define('joystick-Ƅ', class extends HTMLElement {
         document.addEventListener('DOMContentLoaded', () => {
             knobCenter = getKnobCenter();
         });
+
+        input_name = this.id;
     }
 
     connectedCallback() {
         this.socket.addEventListener('open', event => {
             console.log(`opening socket for ${this.id} ...`);
-            this.socket.send(JSON.stringify({ "payload": `${this.id} is connected` }));
+            this.socket.send(JSON.stringify({ "payload": "input-connected", "id": this.id }));
         });
     }
 
@@ -83,7 +87,7 @@ window.customElements.define('joystick-Ƅ', class extends HTMLElement {
 
 function moveJoystick(x, y, element) {
     element.style.transform = `translate3d(${x - knobSize / 2}px, ${y - knobSize / 2}px, 0)`;
-    element.dispatchEvent(new CustomEvent("move", {
+    element.dispatchEvent(new CustomEvent("movement2d", {
         bubbles: true,
         composed: true,
         detail: {
