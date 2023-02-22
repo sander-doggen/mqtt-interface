@@ -1,4 +1,4 @@
-let input_name;
+let component_id;
 
 let boxSize = 400;
 let knobSize = 150;
@@ -55,6 +55,7 @@ let isDragging = false;
 window.customElements.define('joystick-Ƅ', class extends HTMLElement {
     constructor() {
         super();
+        component_id = this.id;
         this._shadowroot = this.attachShadow({ mode: 'open' });
         this._shadowroot.appendChild(knob);
         this._shadowroot.appendChild(style);
@@ -72,14 +73,12 @@ window.customElements.define('joystick-Ƅ', class extends HTMLElement {
         document.addEventListener('DOMContentLoaded', () => {
             knobCenter = getKnobCenter();
         });
-
-        input_name = this.id;
     }
 
     connectedCallback() {
         this.socket.addEventListener('open', event => {
-            console.log(`opening socket for ${this.id} ...`);
-            this.socket.send(JSON.stringify({ "payload": "input-connected", "id": this.id }));
+            console.log(`opening socket for ${component_id} ...`);
+            this.socket.send(JSON.stringify({ "payload": "input-connected", "id": component_id }));
         });
     }
 
@@ -87,14 +86,14 @@ window.customElements.define('joystick-Ƅ', class extends HTMLElement {
 
 function moveJoystick(x, y, element) {
     element.style.transform = `translate3d(${x - knobSize / 2}px, ${y - knobSize / 2}px, 0)`;
-    element.dispatchEvent(new CustomEvent("movement2d", {
+    element.dispatchEvent(new CustomEvent(component_id, {
         bubbles: true,
         composed: true,
         detail: {
             "x": mov_x,
             "y": mov_y
         }
-    })); 
+    }));
 }
 
 function getPosition(event) {
@@ -111,7 +110,7 @@ function startDrag(event) {
 
     if (insideBounds(coords.x, coords.y, 50)) {
         isDragging = true;
-    
+
         grab_delta_x = coords.x;
         grab_delta_y = coords.y;
 

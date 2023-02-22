@@ -17,10 +17,12 @@ window.customElements.define('controller-Ƅ', class extends HTMLElement {
 
         this.socket = new WebSocket(`ws://${window.HOST}:${window.PORT}`);
 
+        // Add event listeners for every inputsensor
         this.addEventListener("movement2d", (e) => {
             movement2d.x = e.detail.x;
             movement2d.y = e.detail.y;
         });
+        // ---------------------------------------------
     }
 
     connectedCallback() {
@@ -28,7 +30,7 @@ window.customElements.define('controller-Ƅ', class extends HTMLElement {
             console.log("opening socket for controller ...")
             this.socket.send(JSON.stringify({ "payload": `controller is connected` }));
 
-            // log all sensors that are implemented here, use ( logInput(this.socket, <source(id of component)>, <dataformat>, <period(ms)>); )
+            // log all sensors that are implemented here, use ( logInput(this.socket, <source(id of component)>, <data>, <period(ms)>); )
             logInput(this.socket, "movement2d", movement2d, 300);
             // --------------------------------------------
         });
