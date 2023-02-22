@@ -30,11 +30,11 @@ wss.on('connection', function connection(ws) {
                 mqttSendJsonMessage(incoming.source, incoming.data);
                 break;
             default:
-                console.log(`default: ${incoming.payload}`);
+                console.log(`log: ${incoming.payload}`);
         }
     });
 });
 
 HTTP.listen(process.env.PORT, () => {
-    console.log(`Node HTTP and WS server on ${process.env.HOST}, port ${process.env.PORT} ...`);
+    console.log(`Node HTTP and WS server on ${process.env.HOST}, port ${process.env.PORT} ...\n\n`);
 });

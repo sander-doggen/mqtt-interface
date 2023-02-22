@@ -1,7 +1,7 @@
 let component_id;
 
-let boxSize = 400;
-let knobSize = 150;
+const boxSize = 60;
+const knobSize = 40;
 
 const knob = document.createElement('div');
 knob.id = 'knob';
@@ -10,21 +10,17 @@ const style = document.createElement('style');
 style.textContent = `
 :host {
     display: block;
-    width: ${boxSize}px;
-    height: ${boxSize}px;
-    border: 5px solid #004eff;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    height: ${boxSize}%;
+    aspect-ratio: 1/1;
+    border: 5px solid #bbb;
   }
 
   #knob {
-    width: ${knobSize}px;
-    height: ${knobSize}px;
+    width: ${knobSize}%;
+    height: ${knobSize}%;
     border-radius: 50%;
-    background-color: #b5b5b5;
-    position: absolute;
+    background-color: #bf7474;
+    position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -38,6 +34,8 @@ style.textContent = `
 `;
 
 let knobCenter = null;
+let knobSizePX;
+let boxSizePX;
 let mouse_x = 0;
 let mouse_y = 0;
 
@@ -85,7 +83,7 @@ window.customElements.define('joystick-Ƅ', class extends HTMLElement {
 });
 
 function moveJoystick(x, y, element) {
-    element.style.transform = `translate3d(${x - knobSize / 2}px, ${y - knobSize / 2}px, 0)`;
+    element.style.transform = `translate3d(${x - knobSizePX / 2}px, ${y - knobSizePX / 2}px, 0)`;
     element.dispatchEvent(new CustomEvent(component_id, {
         bubbles: true,
         composed: true,
@@ -102,13 +100,13 @@ function getPosition(event) {
 }
 
 function startDrag(event) {
-    event.preventDefault();
     knobCenter = getKnobCenter();
     getPosition(event);
 
     coords = toLocalCoords({ x: mouse_x, y: mouse_y });
 
-    if (insideBounds(coords.x, coords.y, 50)) {
+    if (insideBounds(coords.x, coords.y, knobSizePX/2)) {
+        event.preventDefault();
         isDragging = true;
 
         grab_delta_x = coords.x;
@@ -156,6 +154,7 @@ function toGlobalCoords(coords) {
 
 function getKnobCenter() {
     const rect = knob.getBoundingClientRect();
+    knobSizePX = rect.width;
     const center = {
         x: rect.left + (rect.width / 2),
         y: rect.top + (rect.height / 2)
