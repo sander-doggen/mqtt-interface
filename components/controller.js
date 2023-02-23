@@ -1,12 +1,12 @@
 import "./joystick.js";
-import "./tts_form.js";
+import "./tts.js";
 
 const height = 50;
 const width = 80;
 
 const html = `
     <joystick-Ƅ id="movement2d"></joystick-Ƅ>
-    <form-Ƅ id="tts"></form-Ƅ>
+    <tts-Ƅ id="tts"></tts-Ƅ>
 `;
 
 const style = document.createElement('style');

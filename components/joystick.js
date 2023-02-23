@@ -15,8 +15,6 @@ window.customElements.define('joystick-Ƅ', class extends HTMLElement {
     constructor() {
         super();
 
-        this.test = "test";
-
         this.knob = document.createElement('div');
         this.knob.id = 'knob';
 
@@ -101,7 +99,6 @@ window.customElements.define('joystick-Ƅ', class extends HTMLElement {
             this.#mov.x = coords.x - this.#grab_delta.x;
             this.#mov.y = coords.y - this.#grab_delta.y;
 
-            console.log(this.#boxInfo.width);
             if (insideBounds(this.#mov.x, this.#mov.y, this.#boxInfo.width / 2)) moveKnob(this, this.#mov.x, -this.#mov.y);
         }
     }
