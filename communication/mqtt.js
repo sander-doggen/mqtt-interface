@@ -4,7 +4,8 @@ const message_interface = require("./message_interface.js");
 let connections = {};
 
 const topic_bindings = {
-    "movement2d": "zbos/motion/control/movement"
+    "movement2d": "zbos/motion/control/movement",
+    "tts": "zbos/dialog/set"
 };
 
 function mqttInit(source) {

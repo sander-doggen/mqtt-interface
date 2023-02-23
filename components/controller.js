@@ -2,7 +2,7 @@ import "./joystick.js";
 import "./tts_form.js";
 
 const height = 50;
-const width = 50;
+const width = 80;
 
 const html = `
     <joystick-Ƅ id="movement2d"></joystick-Ƅ>
