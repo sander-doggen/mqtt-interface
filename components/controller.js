@@ -4,6 +4,7 @@ import "./tts.js";
 const height = 50;
 const width = 80;
 
+// Add components here (id is important for communication)
 const html = `
     <joystick-Ƅ id="movement2d"></joystick-Ƅ>
     <tts-Ƅ id="tts"></tts-Ƅ>
