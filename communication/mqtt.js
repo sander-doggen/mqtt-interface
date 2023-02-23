@@ -3,17 +3,18 @@ const message_interface = require("./message_interface.js");
 
 let connections = {};
 
+// All topics to connect to with their input(id) as key
 const topic_bindings = {
     "movement2d": "zbos/motion/control/movement",
     "tts": "zbos/dialog/set"
 };
 
-function mqttInit(source) {
-    console.log(`Initialising mqtt connection for ${source}`);
-
-    connections[source] = mqtt.connect(process.env.MQTT_BROKER, {queueQoSZero: false});
-    
-    mqttSubscribe(source, topic_bindings[source]);
+function mqttInit() {
+    for (const [key, value] of Object.entries(topic_bindings)) {
+        console.log(`Setting up mqtt connection for ${key} to ${value}`);
+        connections[key] = mqtt.connect(process.env.MQTT_BROKER, {queueQoSZero: false});
+        mqttSubscribe(key, value);
+    }    
 }
 
 function mqttSubscribe(source, topic) {

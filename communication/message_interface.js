@@ -1,4 +1,4 @@
-// {"angle":{"degree":180,"radian":3.1415926536},"force":100}
+// Function name has to be the component's id
 
 let degrees;
 let radian;
