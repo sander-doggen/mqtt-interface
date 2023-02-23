@@ -2,7 +2,7 @@ window.customElements.define('joystick-Ƅ', class extends HTMLElement {
 
     style;
 
-    #boxSize = 60;
+    #boxSize = 10;
     #knobSize = 40;
 
     #knobInfo;
@@ -22,7 +22,7 @@ window.customElements.define('joystick-Ƅ', class extends HTMLElement {
         this.style.textContent = `
             :host {
                 display: block;
-                height: ${this.#boxSize}%;
+                width: ${this.#boxSize}vw;
                 aspect-ratio: 1/1;
                 border: 5px solid #bbb;
               }

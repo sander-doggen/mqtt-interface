@@ -6,7 +6,10 @@ const width = 80;
 
 const html = `
     <joystick-Ƅ id="movement2d"></joystick-Ƅ>
-    <tts-Ƅ id="tts"></tts-Ƅ>
+    <joystick-Ƅ id="blabla"></joystick-Ƅ>
+    <joystick-Ƅ id="blabla"></joystick-Ƅ>
+    <joystick-Ƅ id="blabla"></joystick-Ƅ>
+    <!-- <tts-Ƅ id="tts"></tts-Ƅ> -->
 `;
 
 const style = document.createElement('style');
@@ -14,6 +17,7 @@ style.textContent = `
 :host {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     column-gap: 8%;
