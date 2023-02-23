@@ -6,10 +6,7 @@ const width = 80;
 
 const html = `
     <joystick-Ƅ id="movement2d"></joystick-Ƅ>
-    <joystick-Ƅ id="blabla"></joystick-Ƅ>
-    <joystick-Ƅ id="blabla"></joystick-Ƅ>
-    <joystick-Ƅ id="blabla"></joystick-Ƅ>
-    <!-- <tts-Ƅ id="tts"></tts-Ƅ> -->
+    <tts-Ƅ id="tts"></tts-Ƅ>
 `;
 
 const style = document.createElement('style');

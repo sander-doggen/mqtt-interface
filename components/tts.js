@@ -2,16 +2,13 @@ window.customElements.define('tts-Ƅ', class extends HTMLElement {
 
 	style;
 
-	#width = 50;
-	#height = 60;
-
 	constructor() {
 		super();
 
 		this.form = document.createElement('form');
 		this.form.id = 'tts_form';
 		this.form.innerHTML = `
-      		<label>Text to speech: <input type="text" name="message"/></label>
+      		<label>Text to speech: <input type="text" name="message" autocomplete="off"/></label>
       		<br/><br/>
       		<button type="submit">Send</button>
     	`;
@@ -21,8 +18,6 @@ window.customElements.define('tts-Ƅ', class extends HTMLElement {
 			:host {
 			    display: block;
 			    border: 5px solid #bbb;
-			    width: ${this.#width}%;
-			    height: ${this.#height}%;
 			  }
 		  
 			  #tts_form {
