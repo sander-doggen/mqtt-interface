@@ -32,13 +32,15 @@ function mqttSubscribe(source, topic) {
 }
 
 function mqttSendJsonMessage(source, data) {
-
-    if (message_interface[source](data)) {
-        message = message_interface[source](data);
+    if  (source === undefined) {
+        console.log('\x1b[31m%s\x1b[0m', `${source}'s subscribtion to ${topic} failed!`);
+        return
+    }
+    const message = message_interface[source](data);
+    if (message) {
         console.log(`${source} -> ${topic_bindings[source]} :: ${message}`);
         // connections[source].publish(topic_bindings[source], message);
     }
-
 }
 
 module.exports = {

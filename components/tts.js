@@ -48,12 +48,21 @@ window.customElements.define('tts-Ƅ', class extends HTMLElement {
 	}
 
 	logSubmit(event) {
+		event.preventDefault();
 		const formData = new FormData(this.form);
+		let message = "";
 		for (const [key, value] of formData) {
-			console.log(`${key}: ${value}\n`);
+			message = value
 		}
 		this.form.reset();
-		event.preventDefault();
+		
+		this.dispatchEvent(new CustomEvent(this.id, {
+			bubbles: true,
+			composed: true,
+			detail: {
+				"message": message
+			}
+		}));
 	}
 
 });

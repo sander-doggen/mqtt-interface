@@ -8,6 +8,7 @@ function movement2d(data) {
     let x = data.x;
     let y = data.y;
 
+    // No need to calculate an angle and send it if x and y equals 0
     if (x === 0 && y === 0) {
         return null;
     } else {
@@ -18,10 +19,15 @@ function movement2d(data) {
     }
 }
 
+function tts(data) {
+    return JSON.stringify(data);
+}
+
 function radToDegrees(rads) {
     return rads * 180 / Math.PI;
 }
 
 module.exports = {
-    movement2d
+    movement2d,
+    tts
 };

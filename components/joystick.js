@@ -70,7 +70,7 @@ window.customElements.define('joystick-Ƅ', class extends HTMLElement {
 
     connectedCallback() {
         this.socket.addEventListener('open', event => {
-            console.log(`opening socket for ${this.is} ...`);
+            console.log(`opening socket for ${this.id} ...`);
             this.socket.send(JSON.stringify({ "payload": "input-connected", "id": this.id }));
         });
     }
