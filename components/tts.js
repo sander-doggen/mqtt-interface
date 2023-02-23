@@ -30,16 +30,7 @@ window.customElements.define('tts-Ƅ', class extends HTMLElement {
 		this._shadowroot.appendChild(this.form);
 		this._shadowroot.appendChild(this.style);
 
-		this.socket = new WebSocket(`ws://${window.HOST}:${window.PORT}`);
-
 		this.form.addEventListener('submit', this.logSubmit.bind(this));
-	}
-
-	connectedCallback() {
-		this.socket.addEventListener('open', event => {
-			console.log(`opening socket for ${this.id} ...`);
-			this.socket.send(JSON.stringify({ "payload": "input-connected", "id": this.id }));
-		});
 	}
 
 	logSubmit(event) {

@@ -64,7 +64,7 @@ window.customElements.define('controller-Ƅ', class extends HTMLElement {
     connectedCallback() {
         this.socket.addEventListener('open', event => {
             console.log("opening socket for controller ...")
-            this.socket.send(JSON.stringify({ "payload": `controller is ready` }));
+            this.socket.send(JSON.stringify({ "payload": `controller has made socket connection` }));
 
             // logInput is used to periodically send the global variable ( logInput(this.socket, <source(id of component)>, <data>, <period(ms)>); )
             logInput(this.socket, "movement2d", movement2d, 300);
