@@ -1,18 +1,32 @@
 <html>
 
 <style>
-    html, body {margin: 0; height: 100%; overflow: hidden}
+    html,
+    body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        font-family: Arial;
+    }
+
+    .title {
+        text-align: center;
+        padding: 2rem;
+    }
 </style>
 
 <head>
+    <title>Interface</title>
     <script type="module" src="components/controller.js"></script>
     <script>
         window.HOST = "172.16.0.107";
         window.PORT = "2105";
     </script>
 </head>
+
 <body>
-    <div id="status"></div>
+    <h1 class="title">Send messages to JAMES with mqtt</h1>
     <controller-Ƅ></controller-Ƅ>
 </body>
+
 </html>

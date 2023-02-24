@@ -5,9 +5,11 @@ import "./slider.js";
 const height = 50;
 const width = 80;
 
+// Add components here (id is important for communication)
 const html = `
     <joystick-Ƅ id="movement2d"></joystick-Ƅ>
     <tts-Ƅ id="tts"></tts-Ƅ>
+    <joystick-Ƅ id="movement2d"></joystick-Ƅ>
     <slider-Ƅ id="speed"></slider-Ƅ>
 `;
 
@@ -16,6 +18,7 @@ style.textContent = `
 :host {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     column-gap: 8%;
@@ -32,7 +35,12 @@ style.textContent = `
 
 // Make a variable to hold data for every inputsensor
 var movement2d = { "x": 0, "y": 0 };
-var speed = { "value": 0 };
+var tts = { "message": "" };
+// ----------------------------------------------
+
+// Variables to detect change of single fire inputsensors
+var new_tts = { "message": "" };
+//var speed = { "value": 0 };
 // ----------------------------------------------
 
 window.customElements.define('controller-Ƅ', class extends HTMLElement {
@@ -44,13 +52,25 @@ window.customElements.define('controller-Ƅ', class extends HTMLElement {
 
         this.socket = new WebSocket(`ws://${window.HOST}:${window.PORT}`);
 
-        // Add event listeners for every inputsensor
+        // Add event listeners for every continuous inputsensor
         this.addEventListener("movement2d", (e) => {
             movement2d.x = e.detail.x;
             movement2d.y = e.detail.y;
         });
-        this.addEventListener("speed", (e) => {
-            speed.value = e.detail.value;
+        // this.addEventListener("speed", (e) => {
+        //     speed.value = e.detail.value;
+        // });
+        // ---------------------------------------------
+
+        // Add event listeners for every single fire inputsensor
+        this.addEventListener("tts", (e) => {
+            new_tts.message = e.detail.message;
+        });
+        // ---------------------------------------------
+
+        // Add event listeners for every single fire inputsensor
+        this.addEventListener("tts", (e) => {
+            new_tts.message = e.detail.message;
         });
         // ---------------------------------------------
     }
@@ -58,11 +78,14 @@ window.customElements.define('controller-Ƅ', class extends HTMLElement {
     connectedCallback() {
         this.socket.addEventListener('open', event => {
             console.log("opening socket for controller ...")
-            this.socket.send(JSON.stringify({ "payload": `controller is ready` }));
+            this.socket.send(JSON.stringify({ "payload": `controller-connected` }));
 
-            // log all sensors that are implemented here, use ( logInput(this.socket, <source(id of component)>, <data>, <period(ms)>); )
-            logPeriodicalInput(this.socket, "movement2d", movement2d, 300);
-            logSingleInput(this.socket, "speed", speed);
+            // logInput is used to periodically send the global variable ( logInput(this.socket, <source(id of component)>, <data>, <period(ms)>); )
+            logInput(this.socket, "movement2d", movement2d, 300);
+            // --------------------------------------------
+
+            // logChangedInput is used to only send the global variable when it has changed value ( logInput(this.socket, <source(id of component)>, <data>); )
+            logChangedInput(this.socket, "tts", tts);
             // --------------------------------------------
         });
     }
@@ -74,8 +97,11 @@ function logPeriodicalInput(socket, source, data, interval) {
     }, interval)
 }
 
-function logSingleInput(socket, source, data) {
+function logChangedInput(socket, source, data) {
     setInterval(function () {
-        socket.send(JSON.stringify({ "payload": "mqtt", "source": source, "data": data }));
+        if (new_tts.message != data.message) {
+            data.message = new_tts.message;
+            socket.send(JSON.stringify({ "payload": "mqtt", "source": source, "data": data }));
+        }
     }, 500)
 }

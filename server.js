@@ -23,8 +23,11 @@ wss.on('connection', function connection(ws) {
         }
 
         switch (incoming.payload) {
-            case "input-connected":
-                mqttInit(incoming.id);
+            // case "input-connected":
+            //     mqttInit(incoming.id);
+            //     break;
+            case  "controller-connected":
+                mqttInit();
                 break;
             case "mqtt":
                 mqttSendJsonMessage(incoming.source, incoming.data);

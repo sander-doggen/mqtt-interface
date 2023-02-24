@@ -2,7 +2,7 @@ window.customElements.define('joystick-Ƅ', class extends HTMLElement {
 
     style;
 
-    #boxSize = 60;
+    #boxSize = 10;
     #knobSize = 40;
 
     #knobInfo;
@@ -22,7 +22,7 @@ window.customElements.define('joystick-Ƅ', class extends HTMLElement {
         this.style.textContent = `
             :host {
                 display: block;
-                height: ${this.#boxSize}%;
+                width: ${this.#boxSize}vw;
                 aspect-ratio: 1/1;
                 border: 5px solid #bbb;
               }
@@ -51,8 +51,6 @@ window.customElements.define('joystick-Ƅ', class extends HTMLElement {
         this._shadowroot.appendChild(this.knob);
         this._shadowroot.appendChild(this.style);
 
-        this.socket = new WebSocket(`ws://${window.HOST}:${window.PORT}`);
-
         this.addEventListener('mousedown', this.startDrag.bind(this));
         this.addEventListener('mousemove', this.drag.bind(this));
         document.addEventListener('mouseup', this.stopDrag.bind(this));
@@ -66,13 +64,6 @@ window.customElements.define('joystick-Ƅ', class extends HTMLElement {
 
         addEventListener("resize", (event) => { this.resetKnob(); });
 
-    }
-
-    connectedCallback() {
-        this.socket.addEventListener('open', event => {
-            console.log(`opening socket for ${this.is} ...`);
-            this.socket.send(JSON.stringify({ "payload": "input-connected", "id": this.id }));
-        });
     }
 
     startDrag(event) {
@@ -158,12 +149,13 @@ function insideBounds(x, y, r) {
 function moveKnob(component, x, y) {
     const knobInfo = getInfo(component.knob);
     component.knob.style.transform = `translate3d(${x - knobInfo.width / 2}px, ${y - knobInfo.width / 2}px, 0)`;
+    console.log(`x: ${x} y: ${-y}`);
     component.knob.dispatchEvent(new CustomEvent(component.id, {
         bubbles: true,
         composed: true,
         detail: {
             "x": x,
-            "y": y
+            "y": -y
         }
     }));
 }
