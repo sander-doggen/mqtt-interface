@@ -19,7 +19,9 @@ function movement2d(data) {
     }
 }
 
+// {"message":"hallo","language":"de-DE","pitch":52,"speed":100}
 function tts(data) {
+    const message = JSON.stringify({"message":data.message,"language":"de-DE","pitch":52,"speed":100});
     return JSON.stringify(data);
 }
 

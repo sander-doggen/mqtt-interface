@@ -40,7 +40,7 @@ function mqttSendJsonMessage(source, data) {
     const message = message_interface[source](data);
     if (message) {
         console.log('\x1b[35m%s\x1b[0m', `${source} -> ${topic_bindings[source]} :: ${message}`);
-        // connections[source].publish(topic_bindings[source], message);
+        connections[source].publish(topic_bindings[source], message);
     }
 }
 

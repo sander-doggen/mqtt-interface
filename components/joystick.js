@@ -149,12 +149,13 @@ function insideBounds(x, y, r) {
 function moveKnob(component, x, y) {
     const knobInfo = getInfo(component.knob);
     component.knob.style.transform = `translate3d(${x - knobInfo.width / 2}px, ${y - knobInfo.width / 2}px, 0)`;
+    console.log(`x: ${x} y: ${-y}`);
     component.knob.dispatchEvent(new CustomEvent(component.id, {
         bubbles: true,
         composed: true,
         detail: {
             "x": x,
-            "y": y
+            "y": -y
         }
     }));
 }
