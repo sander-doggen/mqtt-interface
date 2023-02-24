@@ -55,8 +55,8 @@ window.customElements.define('joystick-Ƅ', class extends HTMLElement {
         this.addEventListener('mousemove', this.drag.bind(this));
         document.addEventListener('mouseup', this.stopDrag.bind(this));
 
-        document.addEventListener('touchstart', this.startDrag.bind(this));
-        document.addEventListener('touchmove', this.drag.bind(this));
+        this.addEventListener('touchstart', this.startDrag.bind(this));
+        this.addEventListener('touchmove', this.drag.bind(this));
         document.addEventListener('touchend', this.stopDrag.bind(this));
 
         // document.addEventListener('DOMContentLoaded', () => {

@@ -68,7 +68,7 @@ window.customElements.define('slider-Ƅ', class extends HTMLElement {
 
     this.socket = new WebSocket(`ws://${window.HOST}:${window.PORT}`);
 
-    this.slide.addEventListener('click', this.moveSlider.bind(this));
+    this.slide.addEventListener('change', this.moveSlider.bind(this));
     document.addEventListener('DOMContentLoaded', () => {
       this.moveSlider();
     });
