@@ -1,10 +1,11 @@
 // Function name has to be the component's id
 
-let degrees;
-let radian;
-let force = 100;
+let degrees_;
+let radians_;
+let force_ = 100; // how fast the robot drives
+let speed_ = 100; // pitch and speed of the voice
 
-function movement2d(data) {
+const movement2d = (data) => {
     let x = data.x;
     let y = data.y;
 
@@ -12,31 +13,38 @@ function movement2d(data) {
     if (x === 0 && y === 0) {
         return null;
     } else {
-        radian = Math.atan2(y, x);
-        degrees = radToDegrees(radian);
-        let message = JSON.stringify({ "angle": { "degree": degrees }, "force": force });
+        radians_ = Math.atan2(y, x);
+        degrees_ = radToDegrees(radians_);
+        let message = { "angle": { "degree": degrees_ }, "force": force_ };
         return message;
     }
 }
 
 // {"message":"hallo","language":"de-DE","pitch":52,"speed":100}
-function tts(data) {
-    const message = JSON.stringify({ "message": data.message, "language": "de-DE", "pitch": 52, "speed": 100 });
-    return JSON.stringify(data);
-}
-
-function speed(data) {
-    let value = data.value;
-    let message = JSON.stringify({ "value": value });
+const tts = (data) => {
+    const message = { "message": data.message, "language": "nl-NL", "pitch": 52, "speed": speed_ };
     return message;
 }
 
-function radToDegrees(rads) {
+const force = (data) => {
+    force_ = data.value;
+    const message = { "changedValue": force_ };
+    return message;
+}
+
+const speed = (data) => {
+    speed_ = data.value;
+    const message = { "changedValue": speed_ };
+    return message;
+}
+
+const radToDegrees = (rads) => {
     return rads * 180 / Math.PI;
 }
 
 module.exports = {
     movement2d,
-    speed,
-    tts
+    force,
+    tts,
+    speed
 };

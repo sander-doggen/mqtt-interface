@@ -107,15 +107,15 @@ window.customElements.define('joystick-Ƅ', class extends HTMLElement {
 
 });
 
-// static functions
+// "static" functions
 
-function getPosition(event) {
+const getPosition = (event) => {
     const mouse_x = event.clientX || event.touches[0].clientX;
     const mouse_y = event.clientY || event.touches[0].clientY;
     return { "x": mouse_x, "y": mouse_y };
 }
 
-function getInfo(element) {
+const getInfo = (element) => {
     const rect = element.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
@@ -126,30 +126,29 @@ function getInfo(element) {
     return { "center": center, "width": width, "height": height };
 }
 
-function toLocalCoords(coords, center) {
+const toLocalCoords = (coords, center) => {
     return {
         x: coords.x - center.x,
         y: center.y - coords.y
     }
 }
 
-function toGlobalCoords(coords, center) {
+const toGlobalCoords = (coords, center) => {
     return {
         x: coords.x + center.x,
         y: center.y - coords.y
     }
 }
 
-function insideBounds(x, y, r) {
+const insideBounds = (x, y, r) => {
     if (x > r || x < -r) return false;
     if (y > r || y < -r) return false;
     return true;
 }
 
-function moveKnob(component, x, y) {
+const moveKnob = (component, x, y) => {
     const knobInfo = getInfo(component.knob);
     component.knob.style.transform = `translate3d(${x - knobInfo.width / 2}px, ${y - knobInfo.width / 2}px, 0)`;
-    console.log(`x: ${x} y: ${-y}`);
     component.knob.dispatchEvent(new CustomEvent(component.id, {
         bubbles: true,
         composed: true,

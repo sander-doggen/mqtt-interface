@@ -12,7 +12,6 @@ HTTP.on('request', APP);
 
 wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
-        // console.log(`received: ${message}`);
         let incoming;
         try {
             incoming = JSON.parse(message);
@@ -23,13 +22,11 @@ wss.on('connection', function connection(ws) {
         }
 
         switch (incoming.payload) {
-            // case "input-connected":
-            //     mqttInit(incoming.id);
-            //     break;
             case  "controller-connected":
                 mqttInit();
                 break;
             case "mqtt":
+                console.log(`mqtt message: ${JSON.stringify(incoming)}`)
                 mqttSendJsonMessage(incoming.source, incoming.data);
                 break;
             default:
