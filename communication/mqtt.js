@@ -5,14 +5,15 @@ let connections = {};
 
 const topic_bindings = {
     "movement2d": "zbos/motion/control/movement",
+    "speed": "zbos/motion/control/movement",
     "tts": "zbos/dialog/set"
 };
 
 function mqttInit(source) {
     console.log(`Initialising mqtt connection for ${source}`);
 
-    connections[source] = mqtt.connect(process.env.MQTT_BROKER, {queueQoSZero: false});
-    
+    connections[source] = mqtt.connect(process.env.MQTT_BROKER, { queueQoSZero: false });
+
     mqttSubscribe(source, topic_bindings[source]);
 }
 

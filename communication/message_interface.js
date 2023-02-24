@@ -13,9 +13,15 @@ function movement2d(data) {
     } else {
         radian = Math.atan2(y, x);
         degrees = radToDegrees(radian);
-        let message = JSON.stringify({"angle":{"degree":degrees},"force":force});
+        let message = JSON.stringify({ "angle": { "degree": degrees }, "force": force });
         return message;
     }
+}
+
+function speed(data) {
+    let value = data.value;
+    let message = JSON.stringify({ "value": value });
+    return message;
 }
 
 function radToDegrees(rads) {
@@ -23,5 +29,6 @@ function radToDegrees(rads) {
 }
 
 module.exports = {
-    movement2d
+    movement2d,
+    speed
 };

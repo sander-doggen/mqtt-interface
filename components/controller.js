@@ -1,5 +1,6 @@
 import "./joystick.js";
 import "./tts.js";
+import "./slider.js";
 
 const height = 50;
 const width = 80;
@@ -7,6 +8,7 @@ const width = 80;
 const html = `
     <joystick-Ƅ id="movement2d"></joystick-Ƅ>
     <tts-Ƅ id="tts"></tts-Ƅ>
+    <slider-Ƅ id="speed"></slider-Ƅ>
 `;
 
 const style = document.createElement('style');
@@ -30,6 +32,7 @@ style.textContent = `
 
 // Make a variable to hold data for every inputsensor
 var movement2d = { "x": 0, "y": 0 };
+var speed = { "value": 0 };
 // ----------------------------------------------
 
 window.customElements.define('controller-Ƅ', class extends HTMLElement {
@@ -46,6 +49,9 @@ window.customElements.define('controller-Ƅ', class extends HTMLElement {
             movement2d.x = e.detail.x;
             movement2d.y = e.detail.y;
         });
+        this.addEventListener("speed", (e) => {
+            speed.value = e.detail.value;
+        });
         // ---------------------------------------------
     }
 
@@ -55,14 +61,21 @@ window.customElements.define('controller-Ƅ', class extends HTMLElement {
             this.socket.send(JSON.stringify({ "payload": `controller is ready` }));
 
             // log all sensors that are implemented here, use ( logInput(this.socket, <source(id of component)>, <data>, <period(ms)>); )
-            logInput(this.socket, "movement2d", movement2d, 300);
+            logPeriodicalInput(this.socket, "movement2d", movement2d, 300);
+            logSingleInput(this.socket, "speed", speed);
             // --------------------------------------------
         });
     }
 });
 
-function logInput(socket, source, data, interval) {
+function logPeriodicalInput(socket, source, data, interval) {
     setInterval(function () {
         socket.send(JSON.stringify({ "payload": "mqtt", "source": source, "data": data }));
     }, interval)
+}
+
+function logSingleInput(socket, source, data) {
+    setInterval(function () {
+        socket.send(JSON.stringify({ "payload": "mqtt", "source": source, "data": data }));
+    }, 500)
 }
