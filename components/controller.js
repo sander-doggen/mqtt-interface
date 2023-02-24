@@ -1,5 +1,6 @@
 import "./joystick.js";
 import "./tts.js";
+import "./slider.js";
 
 const height = 50;
 const width = 80;
@@ -9,6 +10,7 @@ const html = `
     <joystick-Ƅ id="movement2d"></joystick-Ƅ>
     <tts-Ƅ id="tts"></tts-Ƅ>
     <joystick-Ƅ id="movement2d"></joystick-Ƅ>
+    <slider-Ƅ id="speed"></slider-Ƅ>
 `;
 
 const style = document.createElement('style');
@@ -38,6 +40,7 @@ var tts = { "message": "" };
 
 // Variables to detect change of single fire inputsensors
 var new_tts = { "message": "" };
+//var speed = { "value": 0 };
 // ----------------------------------------------
 
 window.customElements.define('controller-Ƅ', class extends HTMLElement {
@@ -53,6 +56,15 @@ window.customElements.define('controller-Ƅ', class extends HTMLElement {
         this.addEventListener("movement2d", (e) => {
             movement2d.x = e.detail.x;
             movement2d.y = e.detail.y;
+        });
+        // this.addEventListener("speed", (e) => {
+        //     speed.value = e.detail.value;
+        // });
+        // ---------------------------------------------
+
+        // Add event listeners for every single fire inputsensor
+        this.addEventListener("tts", (e) => {
+            new_tts.message = e.detail.message;
         });
         // ---------------------------------------------
 

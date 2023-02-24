@@ -6,15 +6,16 @@ let connections = {};
 // All topics to connect to with their input(id) as key
 const topic_bindings = {
     "movement2d": "zbos/motion/control/movement",
+    "speed": "zbos/motion/control/movement",
     "tts": "zbos/dialog/set"
 };
 
 function mqttInit() {
     for (const [key, value] of Object.entries(topic_bindings)) {
         console.log(`Setting up mqtt connection for ${key} to ${value}`);
-        connections[key] = mqtt.connect(process.env.MQTT_BROKER, {queueQoSZero: false});
+        connections[key] = mqtt.connect(process.env.MQTT_BROKER, { queueQoSZero: false });
         mqttSubscribe(key, value);
-    }    
+    }
 }
 
 function mqttSubscribe(source, topic) {
@@ -33,7 +34,7 @@ function mqttSubscribe(source, topic) {
 }
 
 function mqttSendJsonMessage(source, data) {
-    if  (source === undefined) {
+    if (source === undefined) {
         console.log('\x1b[31m%s\x1b[0m', `source is undefined in mqttSendJsonMessage (mqtt.js)`);
         return
     }
