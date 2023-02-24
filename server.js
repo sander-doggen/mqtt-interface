@@ -26,7 +26,6 @@ wss.on('connection', function connection(ws) {
                 mqttInit();
                 break;
             case "mqtt":
-                console.log(`mqtt message: ${JSON.stringify(incoming)}`)
                 mqttSendJsonMessage(incoming.source, incoming.data);
                 break;
             default:

@@ -13,7 +13,7 @@ const mqttInit = () => {
     for (const [key, value] of Object.entries(topic_bindings)) {
         console.log(`Setting up mqtt connection for ${key} to ${value}`);
         connections[key] = mqtt.connect(process.env.MQTT_BROKER, { queueQoSZero: false });
-        mqttSubscribe(key, value);
+        // mqttSubscribe(key, value);
     }
 }
 
