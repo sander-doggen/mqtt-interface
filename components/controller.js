@@ -69,7 +69,7 @@ window.customElements.define('controller-Ƅ', class extends HTMLElement {
             this.socket.send(JSON.stringify({ "payload": `controller-connected` }));
 
             // logInput is used to periodically send the global variable ( logInput(this.socket, <source(id of component)>, <data>, <period(ms)>); )
-            logInput(this.socket, "movement2d", movement2d, 300);
+            logPeriodicalInput(this.socket, "movement2d", movement2d, 300);
             // --------------------------------------------
 
             // logChangedInput is used to only send the global variable when it has changed value ( logInput(this.socket, <source(id of component)>, <data>); )
@@ -79,7 +79,7 @@ window.customElements.define('controller-Ƅ', class extends HTMLElement {
     }
 });
 
-function logInput(socket, source, data, interval) {
+function logPeriodicalInput(socket, source, data, interval) {
     setInterval(function () {
         socket.send(JSON.stringify({ "payload": "mqtt", "source": source, "data": data }));
     }, interval)
