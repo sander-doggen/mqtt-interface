@@ -1,12 +1,13 @@
-require('dotenv').config();
-const WSS = require('ws').Server;
-const HTTP = require('http').createServer();
-const APP = require('./app');
-const { mqttInit, mqttSendJsonMessage } = require('./communication/mqtt.js');
+import * as dotenv from 'dotenv';
+import { WebSocketServer } from 'ws';
+import * as http from 'http';
+import APP from './app.js';
+import * as mqqtUtil from './mqttUtil/mqtt.js';
 
-let wss = new WSS({
-    server: HTTP
-});
+
+dotenv.config();
+const HTTP = http.createServer();
+const wss = new WebSocketServer({ server: HTTP });
 
 HTTP.on('request', APP);
 
@@ -22,11 +23,11 @@ wss.on('connection', function connection(ws) {
         }
 
         switch (incoming.payload) {
-            case  "controller-connected":
-                mqttInit();
+            case "controller-connected":
+                mqqtUtil.mqttPublisherInit();
                 break;
             case "mqtt":
-                mqttSendJsonMessage(incoming.source, incoming.data);
+                mqqtUtil.mqttSendJsonMessage(incoming.source, incoming.data);
                 break;
             default:
                 console.log(`log: ${incoming.payload}`);

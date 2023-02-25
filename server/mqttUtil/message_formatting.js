@@ -3,7 +3,7 @@
 let degrees_;
 let radians_;
 let force_ = 100; // how fast the robot drives
-let speed_ = 100; // pitch and speed of the voice
+let speed_ = 100; // speed of the voice
 
 const movement2d = (data) => {
     let x = data.x;
@@ -42,9 +42,11 @@ const radToDegrees = (rads) => {
     return rads * 180 / Math.PI;
 }
 
-module.exports = {
-    movement2d,
-    force,
-    tts,
-    speed
-};
+// module.exports = {
+//     movement2d,
+//     force,
+//     tts,
+//     speed
+// };
+
+export { movement2d, force, tts, speed };
