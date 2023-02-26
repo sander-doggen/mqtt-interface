@@ -22,7 +22,6 @@ const subscribe_topic_bindings = {
 
 
 const mqttPublisherInit = () => {
-    console.log("Connecting controller ...");
     publish_connection = mqtt.connect(process.env.MQTT_BROKER, { queueQoSZero: false });
     publish_connection.on('connection', () => {
         console.log(succes_color, `Publisher connected to broker: ${error}`);
@@ -37,8 +36,8 @@ const mqttPublisherInit = () => {
         connected_for_publishing = false;
     })
 
-    console.log(succes_send_color, "SUCCESFULLY SENT");
-    console.log(didnt_send_color, "NOT SENT");
+    console.log(succes_send_color, "CONNECTED TO BROKER");
+    console.log(didnt_send_color, "NOT CONNECTED TO BROKER");
     console.log("\n==========================\n");
 }
 
@@ -73,11 +72,13 @@ const mqttSendJsonMessage = (source, data) => {
 
     const color = (connected_for_publishing ? succes_send_color : didnt_send_color);
 
-    const message = format[source](data);
+    // if the message doesn't need to be transmissed over mqtt, "changedValue" is the key for the parameter value
+    // this happens when the parameter value changes to be send with next messages
+    const message = format[source](data);   // format[source](data) calls a method with name of <source> inside message_formatting.js with argument <data>
     if (message && ("changedValue" in message)) {
         console.log(color, `${source} -> parameter :: ${message.changedValue}`);
     }
-    else if (message) {
+    else if (message) {     // transmit formatted message
         console.log(color, `${source} -> ${publish_topic_bindings[source]} :: ${JSON.stringify(message)}`);
         if (connected_for_publishing) publish_connection.publish(publish_topic_bindings[source], JSON.stringify(message));
     }
