@@ -12,7 +12,8 @@ let connected_for_publishing = false;
 // All topics for publishing
 const publish_topic_bindings = {
     "movement2d": "zbos/motion/control/movement",
-    "tts": "zbos/dialog/set"
+    "tts": "zbos/dialog/set",
+    "sounds": "zbos/audio/player/start"
 };
 
 // All topics for subscribing

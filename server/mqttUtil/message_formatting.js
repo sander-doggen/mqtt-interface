@@ -38,6 +38,16 @@ const speed = (data) => {
     return message;
 }
 
+// {
+//     "requestId": "44",
+//     "url": "https://www.myinstants.com/media/sounds/movie_1_C2K5NH0.mp3",
+//     "loop": true
+//   }
+const sounds = (data) => {
+    const message = { "url": data.link };
+    return message;
+}
+
 const radToDegrees = (rads) => {
     return rads * 180 / Math.PI;
 }
@@ -49,4 +59,4 @@ const radToDegrees = (rads) => {
 //     speed
 // };
 
-export { movement2d, force, tts, speed };
+export { movement2d, force, tts, speed, sounds };

@@ -1,17 +1,23 @@
 import "./joystick.js";
 import "./tts.js";
 import "./slider.js";
+import "./soundboard.js"
 
 const height = 50;
 const width = 80;
 
 // Add components here (id is important for communication)
+// const html = `
+//     <joystick-Ƅ id="movement2d"></joystick-Ƅ>
+//     <tts-Ƅ id="tts"></tts-Ƅ>
+//     <slider-Ƅ id="force" min="0" max="200" start="100"></slider-Ƅ>
+//     <slider-Ƅ id="speed" min="0" max="500" start="100"></slider-Ƅ>
+// `;
+
 const html = `
     <joystick-Ƅ id="movement2d"></joystick-Ƅ>
-    <tts-Ƅ id="tts"></tts-Ƅ>
-    <slider-Ƅ id="force" min="0" max="200" start="100"></slider-Ƅ>
-    <slider-Ƅ id="speed" min="0" max="500" start="100"></slider-Ƅ>
-`;
+    <soundboard-Ƅ id="sounds"></soundboard-Ƅ>
+`
 
 const style = document.createElement('style');
 style.textContent = `
@@ -38,6 +44,7 @@ let movement2d = { "x": 0, "y": 0 };
 let tts = { "message": "" };
 let force = { "value": 0 };
 let speed = { "value": 0 };
+let sounds = { "link": "" };
 // ----------------------------------------------
 
 window.customElements.define('controller-Ƅ', class extends HTMLElement {
@@ -81,6 +88,12 @@ window.customElements.define('controller-Ƅ', class extends HTMLElement {
             this.addEventListener("speed", (e) => {
                 speed.value = e.detail.value;
                 let message = { "payload": "mqtt", "source": "speed", "data": speed };
+                this.socket.send(JSON.stringify(message));
+            });
+            this.addEventListener("sounds", (e) => {
+                sounds.link = e.detail.link;
+                let message = { "payload": "mqtt", "source": "sounds", "data": sounds };
+                console.log(JSON.stringify(message));
                 this.socket.send(JSON.stringify(message));
             });
             // ---------------------------------------------
