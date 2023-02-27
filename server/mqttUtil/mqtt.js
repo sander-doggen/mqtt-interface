@@ -23,15 +23,15 @@ const subscribe_topic_bindings = {
 
 const mqttPublisherInit = () => {
     publish_connection = mqtt.connect(process.env.MQTT_BROKER, { queueQoSZero: false });
-    publish_connection.on('connection', () => {
-        console.log(succes_color, `Publisher connected to broker: ${error}`);
+    publish_connection.on('connect', () => {
+        console.log(succes_color, `Publisher connected to broker: ${process.env.MQTT_BROKER}`);
         connected_for_publishing = true;
     })
     publish_connection.on('reconnect', () => {
         console.log(error_color, `Connecting controller (reconnect) ...`);
         connected_for_publishing = false;
     })
-    publish_connection.on('erro', (error) => {
+    publish_connection.on('error', (error) => {
         console.log(error_color, `Error connecting controller: ${error}`);
         connected_for_publishing = false;
     })
