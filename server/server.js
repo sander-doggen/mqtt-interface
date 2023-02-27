@@ -25,8 +25,8 @@ wss.on('connection', function connection(ws) {
         switch (incoming.payload) {
             case "controller-connected":
                 const remote = ws._socket.remoteAddress.toString();
-                console.log(`Incoming controller connection from ${remote.slice(7)}`);
-                mqqtUtil.mqttPublisherInit();
+                console.log(`Incoming controller connection from ${remote.slice(7)}\n`);
+                mqqtUtil.mqttInit();
                 break;
             case "mqtt":
                 mqqtUtil.mqttSendJsonMessage(incoming.source, incoming.data);
