@@ -4,7 +4,7 @@ import "./slider.js";
 import "./soundboard.js"
 
 const height = 50;
-const width = 80;
+const width = 50;
 
 // Add components here (id is important for communication)
 // const html = `
@@ -14,29 +14,64 @@ const width = 80;
 //     <slider-Ƅ id="speed" min="0" max="500" start="100"></slider-Ƅ>
 // `;
 
+// Available components:
+// <joystick-Ƅ id="movement2d"></joystick-Ƅ>
+// <tts-Ƅ id="tts"></tts-Ƅ>
+// <slider-Ƅ id="force" min="0" max="200" start="100"></slider-Ƅ>
+// <slider-Ƅ id="speed" min="0" max="500" start="100"></slider-Ƅ>
+// <soundboard-Ƅ id="sounds"></soundboard-Ƅ>
+
 const html = `
-    <joystick-Ƅ id="movement2d"></joystick-Ƅ>
-    <soundboard-Ƅ id="sounds"></soundboard-Ƅ>
+    <div class="one">
+        <joystick-Ƅ id="movement2d"></joystick-Ƅ>
+    </div>
+    <div class="two">
+        <soundboard-Ƅ id="sounds"></soundboard-Ƅ>
+    </div>
+    <div class="three">
+        <tts-Ƅ id="tts"></tts-Ƅ>
+    </div>
 `
 
 const style = document.createElement('style');
 style.textContent = `
-:host {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    column-gap: 8%;
-    width: ${width}vw;
-    height: ${height}vh;
-    border: 5px solid #000;
-    border-radius: 1rem;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+    :host {
+        box-sizing: border-box;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: minmax(100px, auto);
+        height: ${height}%;
+        width: ${width}%;
+        border: 5px solid #000;
+        border-radius: 1rem;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .one {
+        position: relative;
+        grid-column: 1;
+        grid-row: 1;
+        width: 100%;
+        height: 100%;
+    }
+    .two {
+        position: relative;
+        grid-column: 2;
+        grid-row: 2;
+        width: 100%;
+        height: 100%;
+    }
+    .three {
+        position: relative;
+        grid-column: 2;
+        grid-row: 1;
+        width: 100%;
+        height: 100%;
+    }
+
 `;
 
 // Make a variable to hold data for every inputsensor

@@ -23,10 +23,14 @@ window.customElements.define('soundboard-Ƅ', class extends HTMLElement {
         this.style = document.createElement('style');
         this.style.textContent = `
             :host {
-                display: block;
-                height: ${this.#boxSize}%;
+                box-sizing: border-box;
+                position: absolute;
                 aspect-ratio: 1/1;
                 border: 5px solid #bbb;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                height: ${this.#boxSize}%;
             }
             #board {
               display: flex;

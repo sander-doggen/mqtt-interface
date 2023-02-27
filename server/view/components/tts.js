@@ -2,6 +2,8 @@ window.customElements.define('tts-Ƅ', class extends HTMLElement {
 
 	style;
 
+	#boxSize = 80;
+
 	constructor() {
 		super();
 
@@ -16,14 +18,19 @@ window.customElements.define('tts-Ƅ', class extends HTMLElement {
 		this.style = document.createElement('style');
 		this.style.textContent = `
 			:host {
-			    display: block;
-			    border: 5px solid #bbb;
-			  }
+                box-sizing: border-box;
+                position: absolute;
+                aspect-ratio: 1/1;
+                border: 5px solid #bbb;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                height: ${this.#boxSize}%;
+            }
 		  
-			  #tts_form {
+			#tts_form {
 			    padding: 1rem;
-			  }
-			 }
+			}
 		`;
 
 		this._shadowroot = this.attachShadow({ mode: 'open' });
