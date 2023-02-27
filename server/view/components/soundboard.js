@@ -10,14 +10,14 @@ window.customElements.define('soundboard-Ƅ', class extends HTMLElement {
         this.div = document.createElement('div');
         this.div.id = "board";
         this.div.innerHTML = `
-            <div class="square blue" id="emotional-damage-meme"></div>
-            <div class="square white" id="chupapi-short"></div>
-            <div class="square white" id="chupapi"></div>
-            <div class="square blue" id="mwoah"></div>
-            <div class="square blue" id="samson_jaah"></div>
-            <div class="square white" id="voorzichtig_baan"></div>
-            <div class="square white" id="untitled"></div>
-            <div class="square blue"></div>
+            <div class="square color1" id="emotional-damage-meme"></div>
+            <div class="square color2" id="chupapi-short"></div>
+            <div class="square color2" id="mwoah"></div>
+            <div class="square color1" id="samson-jaah-1"></div>
+            <div class="square color1" id="voorzichtig-op-de-baad"></div>
+            <div class="square color2" id="untitled-2_10"></div>
+            <div class="square color2" id="het-lijden-van-de-vlaamse-bosdwerg"></div>
+            <div class="square color1" id="tf_nemesis"></div>
     	`;
 
         this.style = document.createElement('style');
@@ -37,10 +37,10 @@ window.customElements.define('soundboard-Ƅ', class extends HTMLElement {
             .square {
               width: 50%;
             }
-            .blue {
+            .color1 {
               background-color: blue;
             }
-            .white {
+            .color2 {
               background-color: red;
             }
 		`;
