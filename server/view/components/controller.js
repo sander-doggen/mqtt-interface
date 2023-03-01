@@ -3,8 +3,8 @@ import "./tts.js";
 import "./slider.js";
 import "./soundboard.js"
 
-const height = 50;
-const width = 50;
+const height = 75;
+const width = 75;
 
 // Add components here (id is important for communication)
 // const html = `
@@ -22,15 +22,15 @@ const width = 50;
 // <soundboard-Ƅ id="sounds"></soundboard-Ƅ>
 
 const html = `
-    <div class="one">
-        <joystick-Ƅ id="movement2d"></joystick-Ƅ>
-    </div>
-    <div class="two">
-        <soundboard-Ƅ id="sounds"></soundboard-Ƅ>
-    </div>
-    <div class="three">
-        <tts-Ƅ id="tts"></tts-Ƅ>
-    </div>
+        <div class="one">
+            <joystick-Ƅ id="movement2d"></joystick-Ƅ>
+        </div>
+        <div class="two">
+            <soundboard-Ƅ id="sounds"></soundboard-Ƅ>
+        </div>
+        <div class="three">
+            <tts-Ƅ id="tts"></tts-Ƅ>
+        </div>
 `
 
 const style = document.createElement('style');
@@ -45,7 +45,7 @@ style.textContent = `
         border: 5px solid #000;
         border-radius: 1rem;
         position: fixed;
-        top: 50%;
+        top: 60%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
